@@ -1,3 +1,4 @@
 lxml
 pytz
 pyyaml
+requests
