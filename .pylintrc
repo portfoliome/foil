@@ -1,0 +1,69 @@
+[MASTER]
+
+# Add files or directories to the blacklist. They should be base names, not
+# paths.
+ignore=git
+
+
+[Messages Control]
+# W0511: TODOs in code comments are fine.
+# W0142: *args and **kwargs are fine.
+# W0622: Redefining id is fine.
+disable-msg=W0511,W0142,W0622
+
+
+[Basic]
+
+# Variable names can be 1 to 31 characters long, with lowercase and underscores
+variable-rgx=[a-z_][a-z0-9_]{0,30}$
+
+# Argument names can be 2 to 31 characters long, with lowercase and underscores
+argument-rgx=[a-z_][a-z0-9_]{1,30}$
+
+# Method names should be at least 3 characters long
+# and be lowercased with underscores
+method-rgx=[a-z_][a-z0-9_]{2,50}$
+
+
+# Don't require docstrings on tests.
+no-docstring-rgx=((__.*__)|([tT]est.*)|setUp|tearDown)$
+
+# Minimum line length for functions/classes to require docstrings
+docstring-min-length=6
+
+
+[Design]
+max-public-methods=100
+min-public-methods=0
+max-args=8
+
+# Maximum number of locals for function / method body
+max-locals=15
+
+# Maximum number of branch for function / method body
+max-branches=12
+
+[FORMAT]
+
+# Maximum number of characters on a single line.
+max-line-length=90
+
+# Regexp for a line that is allowed to be longer than the limit.
+ignore-long-lines=^\s*(# )?<?https?://\S+>?$
+
+# Allow the body of an if to be on the same line as the test if there is no
+# else.
+single-line-if-stmt=no
+
+# List of optional constructs for which whitespace checking is disabled
+no-space-check=trailing-comma,dict-separator
+
+# Maximum number of lines in a module
+max-module-lines=1000
+
+# String used as indentation unit. This is usually " " (4 spaces) or "\t" (1
+# tab).
+indent-string='    '
+
+# Number of spaces of indent required inside a hanging or continued line.
+indent-after-paren=4
