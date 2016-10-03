@@ -32,9 +32,10 @@ setup(name=PACKAGE_NAME,
       author_email='philip.martin@censible.co',
       classifiers=[
           'Development Status :: 5 - Production/Stable',
-          'Intended Audience :: Data Engineers',
-          'Topic :: Software Development :: ETL utilities',
-          'Programming Language :: Python :: 3.5'
+          'Intended Audience :: Developers',
+          'Natural Language :: English',
+          'Programming Language :: Python :: 3.5',
+          'Topic :: Utilities',
       ],
       keywords='ETL finance generators processing',
       install_requires=get_requirements('requirements.txt'),
