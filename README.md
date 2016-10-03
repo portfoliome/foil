@@ -6,16 +6,19 @@
 
 foil contains for data cleaning and ETL processing.
 
-## Package Conventions
+## Design Conventions
 
-Contributions are welcome. Package conventions call for eliminating **IF** statements, descriptive variable names, reliance on the standard library, and priority for test driven development.
+* Use iterators and generators to build data processing pipelines.
+* eliminate **IF** statements
+* descriptive variable names
+* reliance on the standard library
+* priority for test driven development
 
-## Usage
-
-These instructions assume Python 3.5. It is recommended that you use conda or a virtualenv. foil is fairly lightweight, but has some dependencies.
+Contributions are welcome. 
 
 ### Getting Started
 
+These instructions assume Python 3.5. It is recommended that you use conda or a virtualenv. foil is fairly lightweight, but has some dependencies.
 
 #### For conda install follow:
 Download the [conda installer](http://conda.pydata.org/miniconda.html).
