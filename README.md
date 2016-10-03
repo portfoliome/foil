@@ -2,6 +2,7 @@
 [![codecov.io](http://codecov.io/github/portfoliome/foil/coverage.svg?branch=master)](http://codecov.io/github/portfoliome/foil?branch=master)
 [![Code Climate](https://codeclimate.com/github/portfoliome/foil/badges/gpa.svg)](https://codeclimate.com/github/portfoliome/foil)
 [![Code Health](https://landscape.io/github/portfoliome/foil/master/landscape.svg?style=flat)](https://landscape.io/github/portfoliome/foil/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/portfoliome/foil/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/portfoliome/foil/?branch=master)
 
 # foil
 
