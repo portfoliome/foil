@@ -30,6 +30,13 @@ setup(name=PACKAGE_NAME,
       url='https://github.com/portfoliome/foil',
       author='Philip Martin',
       author_email='philip.martin@censible.co',
+      classifiers=[
+          'Development Status :: 5 - Production/Stable',
+          'Intended Audience :: Data Engineers',
+          'Topic :: Software Development :: ETL utilities',
+          'Programming Language :: Python :: 3.5'
+      ],
+      keywords='ETL finance generators processing',
       install_requires=get_requirements('requirements.txt'),
       extras_require={
           'develop': get_requirements('requirements-dev.txt'),
