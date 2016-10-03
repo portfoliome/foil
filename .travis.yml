@@ -1,0 +1,17 @@
+language: python
+python:
+  - "3.5"
+cache:
+  directories:
+    - $HOME/.cache/pip/wheels
+    - $HOME/travis/virtualenv/python3.5.2
+
+sudo: false
+install:
+  - pip install --upgrade pip
+  - pip install wheel
+  - pip install -r requirements.txt
+  - pip install -r requirements-test.txt
+  - python setup.py install
+script:
+  - py.test tests -s
