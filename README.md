@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.com/portfoliome/foil.svg?token=79cPu78tDByfcardNKx8&branch=master)](https://travis-ci.com/portfoliome/foil)
 
+[![codecov.io](http://codecov.io/github/portfoliome/foil/coverage.svg?branch=master)](http://codecov.io/github/portfoliome/foil?branch=master)
+
 # foil
 
 foil contains for data cleaning and ETL processing.
