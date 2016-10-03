@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/portfoliome/foil.svg?token=79cPu78tDByfcardNKx8&branch=master)](https://travis-ci.com/portfoliome/foil)
+
 # foil
 
 foil contains for data cleaning and ETL processing.
