@@ -16,16 +16,19 @@ class TestTextParsers(unittest.TestCase):
             with self.subTest(input_expect=input_expected):
                 result = parse_bool(input_expected[0])
                 expected = input_expected[1]
+
                 self.assertEqual(expected, result)
 
     def test_float(self):
         expected = 3.412
         result = parse_float('3.412')
+
         self.assertEqual(result, expected)
 
     def test_int(self):
         expected = 3
         result = parse_int('3')
+
         self.assertEqual(expected, result)
 
     def test_numeric_nan_none(self):
@@ -44,16 +47,19 @@ class TestQuotedTextParsers(unittest.TestCase):
             with self.subTest(input_expect=input_expected):
                 result = parse_quoted_bool(input_expected[0])
                 expected = input_expected[1]
+
                 self.assertEqual(expected, result)
 
     def test_float(self):
         expected = 3.412
         result = parse_quoted_float('"3.412"')
+
         self.assertEqual(result, expected)
 
     def test_int(self):
         expected = 3
         result = parse_quoted_int('"3"')
+
         self.assertEqual(expected, result)
 
     def test_numeric_nan(self):
@@ -75,8 +81,10 @@ class TestMakeConverters(unittest.TestCase):
         expected_types = [passthrough, parse_int, parse_float,
                           parse_bool, Klass]
         inputted = dict(zip(datatype_names, inputted_types))
+
         expected = dict(zip(datatype_names, expected_types))
         result = make_converters(inputted)
+
         self.assertEqual(expected, result)
 
 

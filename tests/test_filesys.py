@@ -17,7 +17,7 @@ class TestFileExists(unittest.TestCase):
         self.tmp_path = tmp.name
 
     def test_file_exists(self):
-            self.assertTrue(file_exists(self.tmp_path))
+        self.assertTrue(file_exists(self.tmp_path))
 
     def test_not_exists(self):
         file_name = str(uuid4()) + '.txt'
