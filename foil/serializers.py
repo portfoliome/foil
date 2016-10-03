@@ -1,6 +1,6 @@
 import json
 import uuid
-from datetime import datetime
+from datetime import date, datetime
 from functools import singledispatch
 
 
@@ -12,6 +12,11 @@ def json_serializer(obj):
 @json_serializer.register(uuid.UUID)
 def _(obj):
     return str(obj)
+
+
+@json_serializer.register(date)
+def _(obj):
+    return obj.isoformat()
 
 
 @json_serializer.register(datetime)
