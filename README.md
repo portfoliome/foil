@@ -2,6 +2,10 @@
 
 foil contains for data cleaning and ETL processing.
 
+## Package Conventions
+
+Contributions are welcome. Package conventions call for eliminating **IF** statements, descriptive variable names, reliance on the standard library, and priority for test driven development.
+
 ## Usage
 
 These instructions assume Python 3.5. It is recommended that you use conda or a virtualenv. foil is fairly lightweight, but has some dependencies.
@@ -26,7 +30,7 @@ python setup.py install bdist_wheel
 #### debian installation
 [Instruction](https://linuxconfig.org/how-to-change-from-default-to-alternative-python-version-on-debian-linux)
 
-Follow the instructions in the link provided. **DO NOT SUDO PIP INSTALL**. Alias the prefered Python installation by adding, for example:
+Follow the instructions in the link provided. **DO NOT SUDO PIP INSTALL**. Alias the preferred Python installation by adding, for example:
 
 ```sh
 alias python='/usr/bin/python3.5'
