@@ -1,4 +1,4 @@
-from itertools import groupby
+from itertools import filterfalse, groupby, tee
 
 
 def partition_ordered(sequence, key=None):
@@ -35,3 +35,16 @@ def partition_ordered(sequence, key=None):
     """
 
     yield from ((k, list(g)) for k, g in groupby(sequence, key=key))
+
+
+def partition(predicate, iterable):
+    """Use a predicate to partition true and false entries.
+
+    Reference
+    ---------
+    Python itertools documentation.
+    """
+
+    t1, t2 = tee(iterable)
+
+    return filterfalse(predicate, t1), filter(predicate, t2)
