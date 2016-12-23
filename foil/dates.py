@@ -1,5 +1,6 @@
 import datetime as dt
 import re
+from types import MappingProxyType
 
 import pytz
 
@@ -26,20 +27,24 @@ class IsoDatePattern:
     TIMEZONE = r'(?P<timezone>[A-Z][A-Z_]+(?:/[A-Z][A-Z_]+)+|[A-Z]{3,})?'
 
     def __init__(self, dsep=r'-', tsep=r':', dtsep=r'[T|\s]?', tzsep=r'\s?'):
-        self.date = r'(?:' + dsep.join([self.YEAR, self.MONTH, self.DAY]) + r')?'
-        self.time = r'(?:' + tsep.join([self.HOUR, self.MINUTE, self.SECOND]) + self.MICROSECOND + r')?'
+        self.date = _format_re(dsep.join([self.YEAR, self.MONTH, self.DAY]))
+        self.time = _format_re(tsep.join([self.HOUR, self.MINUTE, self.SECOND]) + self.MICROSECOND)
         self.datetime = dtsep.join([self.date, self.time])
         self.datetimezone = tzsep.join([self.datetime, self.TIMEZONE])
+
+
+def _format_re(pattern):
+    return r'(?:{})?'.format(pattern)
 
 
 _RE_DATE = re.compile(IsoDatePattern().date)
 _RE_DATETIMEZONE = re.compile(IsoDatePattern().datetimezone)
 
-TIMEZONE_MAP = tuple(cartesian_product(
-    (('EST', 'EDT', 'EST/EDT'), pytz.timezone('US/Eastern'))))
+TIMEZONE_MAP = MappingProxyType(dict(cartesian_product(
+    (('EST', 'EDT', 'EST/EDT'), pytz.timezone('US/Eastern')))))
 
 
-def parse_date(date_str, pattern=_RE_DATE):
+def parse_date(date_str: str, pattern=_RE_DATE) -> dt.date:
     """Parse datetime.date from YYYY-MM-DD format."""
 
     groups = re.match(pattern, date_str)
@@ -49,16 +54,11 @@ def parse_date(date_str, pattern=_RE_DATE):
 
 class DateTimeParser:
 
-    def __init__(self, tzinfo=None, TZ_MAPPER=None):
-        if tzinfo is not None:
-            self.tzinfo = tzinfo
+    def __init__(self, pattern=_RE_DATETIMEZONE, tz_mapper=TIMEZONE_MAP):
+        self.pattern = pattern
+        self.tz_mapper = tz_mapper
 
-        self.pattern = _RE_DATETIMEZONE
-
-        if TZ_MAPPER is None:
-            self.TZ_MAPPER = dict(TIMEZONE_MAP)
-
-    def parse(self, date_str):
+    def parse(self, date_str) -> dt.datetime:
         gd = self.pattern.match(date_str).groupdict()
 
         if gd['microsecond'] is not None:
@@ -74,7 +74,7 @@ class DateTimeParser:
     def convert_2_utc(self, datetime_, timezone):
         """convert to datetime to UTC offset."""
 
-        datetime_ = self.TZ_MAPPER[timezone].localize(datetime_)
+        datetime_ = self.tz_mapper[timezone].localize(datetime_)
         return datetime_.astimezone(pytz.UTC)
 
 
@@ -98,6 +98,7 @@ def _datetime_to_tuple(dt_dict):
 def _date_to_tuple(dt_dict):
 
     ymd = ['year', 'month', 'day']
+
     try:
         year, month, day = [int(dt_dict[d]) for d in ymd]
     except TypeError:
