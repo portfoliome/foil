@@ -7,23 +7,9 @@ from collections import namedtuple
 from contextlib import contextmanager
 from io import BufferedReader
 
-from lxml import etree
 from zipfile import ZipFile
 
 from foil.filters import create_indexer
-
-
-def read_xml_root(xml_str: bytes):
-    """Read lxml.ElementTree root from a byte string."""
-
-    doc = etree.fromstring(xml_str)
-
-    try:
-        root = doc.getroot()
-    except AttributeError:
-        root = doc.getroottree().getroot()
-
-    return root
 
 
 class TextReader:
