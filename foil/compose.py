@@ -1,5 +1,5 @@
-from itertools import accumulate, repeat, product
-from typing import Sequence, Iterable, Generator
+from itertools import accumulate, product, repeat
+from typing import Sequence, Generator, Iterable
 
 
 def create_quantiles(items: Sequence, lower_bound, upper_bound):

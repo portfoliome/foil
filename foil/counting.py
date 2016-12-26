@@ -1,5 +1,5 @@
 from collections import defaultdict
-from typing import Sequence, Dict
+from typing import Dict, Sequence
 
 
 def count_by(records: Sequence[Dict], field_name: str) -> defaultdict:
