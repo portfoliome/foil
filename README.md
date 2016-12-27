@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/portfoliome/foil.svg?token=79cPu78tDByfcardNKx8&branch=master)](https://travis-ci.com/portfoliome/foil)
+[![Build Status](https://travis-ci.org/portfoliome/foil.svg?branch=master)](https://travis-ci.com/portfoliome/foil)
 [![codecov.io](http://codecov.io/github/portfoliome/foil/coverage.svg?branch=master)](http://codecov.io/github/portfoliome/foil?branch=master)
 [![Code Climate](https://codeclimate.com/github/portfoliome/foil/badges/gpa.svg)](https://codeclimate.com/github/portfoliome/foil)
 [![Code Health](https://landscape.io/github/portfoliome/foil/master/landscape.svg?style=flat)](https://landscape.io/github/portfoliome/foil/master)
