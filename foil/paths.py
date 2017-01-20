@@ -1,13 +1,13 @@
 import os
 import re
 from hashlib import sha256
-from typing import Iterable
+from typing import Iterable, Pattern
 from zipfile import ZipFile
 
 from foil.util import alphanum_key
 
 
-def find_latest_file(top, pattern):
+def find_latest_file(top: str, pattern: Pattern) -> str:
     """Find latest file matching a pattern in each directory.
 
     Find latest file defined by a file pattern and natural sort
@@ -16,20 +16,14 @@ def find_latest_file(top, pattern):
 
     Parameters
     ----------
-    top : str
-        base directory path
-    pattern : str or re.compile
-        file pattern to match against.
+    top : base directory path
+    pattern : regular expression to match file name pattern
 
     Yields
     ------
-    str
-        full file paths matching pattern.
+    full file paths matching pattern.
 
     """
-
-    if isinstance(pattern, str):
-        pattern = re.compile(pattern)
 
     for root, dirs, files in os.walk(top):
         try:
@@ -40,7 +34,7 @@ def find_latest_file(top, pattern):
             pass
 
 
-def match_file_listing(paths, pattern):
+def match_file_listing(paths, pattern: Pattern):
     for path in paths:
         filename = os.path.basename(path)
 
@@ -48,7 +42,7 @@ def match_file_listing(paths, pattern):
             yield path
 
 
-def match_files(files, pattern):
+def match_files(files, pattern: Pattern):
     """Yields file name if matches a regular expression pattern."""
 
     for name in files:
@@ -56,7 +50,7 @@ def match_files(files, pattern):
             yield name
 
 
-def match_zipfile_members(zipfile_path: str, pattern: str):
+def match_zipfile_members(zipfile_path: str, pattern: Pattern):
     """Match files to a pattern within a zip file's content."""
 
     with ZipFile(zipfile_path, mode='r') as zfile:
@@ -65,7 +59,7 @@ def match_zipfile_members(zipfile_path: str, pattern: str):
     yield from match_files(members, pattern)
 
 
-def find_zipfile_member(zipfile_path: str, pattern: str):
+def find_zipfile_member(zipfile_path: str, pattern: Pattern):
     """Return the first match to a regex within a zip file's content."""
 
     return next(match_zipfile_members(zipfile_path, pattern))
