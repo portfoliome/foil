@@ -37,7 +37,7 @@ def _format_re(pattern):
     return r'(?:{})?'.format(pattern)
 
 
-_RE_DATE = re.compile(IsoDatePattern().date)
+_RE_DATE = re.compile(r'^{}$'.format(IsoDatePattern().date))
 _RE_DATETIMEZONE = re.compile(IsoDatePattern().datetimezone)
 
 TIMEZONE_MAP = MappingProxyType(dict(cartesian_product(
