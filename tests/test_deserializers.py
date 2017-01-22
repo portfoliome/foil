@@ -40,3 +40,15 @@ class TestJSONDeserializer(unittest.TestCase):
         result = json.loads(serialized_data, object_hook=object_hook)
 
         self.assertEqual(expected, result)
+
+    def test_nested_converters(self):
+        serialized_data = json.dumps(
+            {'time': {'date': '2014-04-01', 'time': '03:33:23'}}
+        )
+        converters = {'date': str}
+        object_hook = make_json_decoder_hook(converters=converters)
+
+        expected = {'time': {'date': '2014-04-01', 'time': '03:33:23'}}
+        result = json.loads(serialized_data, object_hook=object_hook)
+
+        self.assertEqual(expected, result)

@@ -57,7 +57,7 @@ def json_decoder_hook(dct, str_decoders=STRING_DECODERS,
 
             dct[k] = v
         elif isinstance(v, collections.Mapping):
-            dct[k] = json_decoder_hook(v, str_decoders=str_decoders)
+            dct[k] = json_decoder_hook(v, str_decoders, converters)
 
     return dct
 
