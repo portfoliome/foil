@@ -64,7 +64,7 @@ def json_decoder_hook(dct, str_decoders=STRING_DECODERS,
 
 def make_json_decoder_hook(str_decoders=STRING_DECODERS,
                            extra_str_decoders=tuple(),
-                           converters=None) -> Callable:
+                           converters=MappingProxyType(dict())) -> Callable:
     """Customize JSON string decoder hooks.
 
     Object hook for typical deserialization scenarios.
