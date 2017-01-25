@@ -1,9 +1,11 @@
 import unittest
+from datetime import date
 
 from foil.parsers import (make_converters, parse_bool, passthrough,
-                          parse_float, parse_int, parse_numeric,
-                          parse_quoted_bool, parse_quoted_float,
-                          parse_quoted_int, parse_quoted_numeric,
+                          parse_float, parse_int, parse_int_bool,
+                          parse_iso_date, parse_numeric, parse_quoted_bool,
+                          parse_quoted_float, parse_quoted_int,
+                          parse_quoted_string, parse_quoted_numeric,
                           parse_broken_json)
 
 
@@ -38,6 +40,31 @@ class TestTextParsers(unittest.TestCase):
             with self.subTest(val=val):
                 self.assertEqual(parse_numeric(float, val), None)
 
+    def test_int_bool(self):
+        mock_data = [(1, True), (0, False), (None, None)]
+
+        for input_expected in mock_data:
+            with self.subTest(input_expect=input_expected):
+                result = parse_int_bool(input_expected[0])
+                expected = input_expected[1]
+
+                self.assertEqual(expected, result)
+
+    def test_parse_iso_date(self):
+        mock_data = [('2014-04-04', date(2014, 4, 4)), ('', None), (None, None)]
+
+        for input_expected in mock_data:
+            with self.subTest(input_expect=input_expected):
+                result = parse_iso_date(input_expected[0])
+                expected = input_expected[1]
+
+                self.assertEqual(expected, result)
+
+    def test_pass_through(self):
+        expected = 123
+        result = passthrough(expected)
+
+        self.assertEqual(expected, result)
 
 class TestQuotedTextParsers(unittest.TestCase):
     def test_bool(self):
@@ -68,6 +95,16 @@ class TestQuotedTextParsers(unittest.TestCase):
         for val in nulls:
             with self.subTest(val=val):
                 self.assertEqual(parse_quoted_numeric(float, val), None)
+
+    def test_parse_quoted_string(self):
+        mock_data = [('""', None), ('"Hello"', 'Hello')]
+
+        for input_expected in mock_data:
+            with self.subTest(input_expect=input_expected):
+                result = parse_quoted_string(input_expected[0])
+                expected = input_expected[1]
+
+                self.assertEqual(expected, result)
 
 
 class Klass:
