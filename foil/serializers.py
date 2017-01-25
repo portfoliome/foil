@@ -1,7 +1,10 @@
 import json
 import uuid
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from functools import singledispatch
+
+
+UTC_ZERO = timedelta(0)
 
 
 @singledispatch
@@ -21,6 +24,13 @@ def _(obj):
 
 @json_serializer.register(datetime)
 def _(obj):
-    # Interpret naive datetime as UTC with zulu suffix.
-    zulu_suffix = 'Z' if obj.tzinfo is None else ''
-    return obj.isoformat() + zulu_suffix
+    """ISO 8601 format. Interprets naive datetime as UTC with zulu suffix."""
+
+    tz_offset = obj.utcoffset()
+
+    if not tz_offset or tz_offset == UTC_ZERO:
+        iso_datetime = obj.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+    else:
+        iso_datetime = obj.isoformat()
+
+    return iso_datetime
