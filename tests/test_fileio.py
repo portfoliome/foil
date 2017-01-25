@@ -8,7 +8,8 @@ from collections import namedtuple
 from datetime import date, datetime
 from tempfile import NamedTemporaryFile
 
-from foil.fileio import DelimitedReader, DelimitedSubsetReader, ZipReader
+from foil.fileio import (concatenate_streams, DelimitedReader,
+                         DelimitedSubsetReader, ZipReader)
 
 
 sample_path = os.path.join(os.path.dirname(__file__), 'sample_data')
@@ -265,3 +266,13 @@ class TestZipReader(unittest.TestCase):
     def tearDownClass(cls):
         if os.path.exists(cls.path):
             os.unlink(cls.path)
+
+
+class TestConcatenateStreams(unittest.TestCase):
+    def test_concatenate_streams(self):
+        streams = [[1, 2, 3], ['a', 'b', 'c']]
+
+        expected = [1, 2, 3, 'a', 'b', 'c']
+        result = list(concatenate_streams(streams))
+
+        self.assertEqual(expected, result)
