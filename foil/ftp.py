@@ -8,6 +8,8 @@ from enum import Enum
 from ftplib import FTP
 from typing import Tuple, List, Iterable
 
+from foil.filesys import ensure_file_directory
+
 
 __all__ = ('ftp_listing_paths',)
 
@@ -88,13 +90,8 @@ def parse_line(line: str, char_index=0) -> Tuple[ListingType, str]:
 def download_ftp_url(source_url, target_uri, buffer_size=8192):
     """Uses urllib. thread safe?"""
 
-    if not os.path.exists(target_uri):
-        if not os.path.exists(os.path.dirname(target_uri)):
-            try:
-                os.makedirs(os.path.dirname(target_uri), exist_ok=False)
-            except OSError:
-                pass
+    ensure_file_directory(target_uri)
 
-        with urllib.request.urlopen(source_url) as source_file:
-            with open(target_uri, 'wb') as target_file:
-                shutil.copyfileobj(source_file, target_file, buffer_size)
+    with urllib.request.urlopen(source_url) as source_file:
+        with open(target_uri, 'wb') as target_file:
+            shutil.copyfileobj(source_file, target_file, buffer_size)
