@@ -1,6 +1,7 @@
 import unittest
 
-from foil.converters import rename_keys, replace_keys
+
+from foil.records import inject_nulls, replace_keys, rename_keys
 
 
 class TestKeyConverters(unittest.TestCase):
@@ -19,3 +20,16 @@ class TestKeyConverters(unittest.TestCase):
         result = replace_keys(self.record, key_map=self.key_map)
 
         self.assertEqual(expected, result)
+
+
+class TestInjectNulls(unittest.TestCase):
+    def test_inject_nulls(self):
+        record = {'city': 'Chicago'}
+        record_copy = record.copy()
+        field_names = ['city', 'state']
+
+        expected = {'city': 'Chicago', 'state': None}
+        result = inject_nulls(record, field_names)
+
+        self.assertEqual(expected, result)
+        self.assertEqual(record_copy, record)

@@ -20,4 +20,5 @@ def read_dotenv(dotenv_path: str):
 
             env_key, env_value = line.split('=', 1)
             env_value = env_value.strip("'").strip('"')
+
             yield env_key, env_value

@@ -9,10 +9,7 @@ from datetime import date, datetime
 from tempfile import NamedTemporaryFile
 
 from foil.fileio import (concatenate_streams, DelimitedReader,
-                         DelimitedSubsetReader, ZipReader)
-
-
-sample_path = os.path.join(os.path.dirname(__file__), 'sample_data')
+                         DelimitedSubsetReader, TextReader, ZipReader)
 
 
 class MockDialect(csv.Dialect):
@@ -66,6 +63,29 @@ def parse_date(date_str):
         return None
     else:
         return datetime.strptime(date_str, '%Y-%m-%d').date()
+
+
+class TestTextReader(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        file_content = 'hello\nworld\n'
+        with NamedTemporaryFile(prefix='text_', suffix='.txt', delete=False) as tmp:
+            with open(tmp.name, 'w', encoding='UTF-8') as text_file:
+                text_file.write(file_content)
+            cls.path = tmp.name
+
+    def test_text_reader(self):
+        reader = TextReader(self.path, 'UTF-8')
+
+        expected = ['hello', 'world']
+        result = list(reader)
+
+        self.assertEqual(expected, result)
+
+    @classmethod
+    def tearDownClass(cls):
+        if os.path.exists(cls.path):
+            os.unlink(cls.path)
 
 
 class TestDelimitedReader(unittest.TestCase):

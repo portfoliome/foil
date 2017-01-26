@@ -51,5 +51,13 @@ class TestJSONSerializer(unittest.TestCase):
 
         self.assertEqual(expected, result)
 
+    def test_serialize_object(self):
+        data = {'hello': 'world'}
+
+        expected = json.dumps(data)
+        result = json_serializer(data)
+
+        self.assertEqual(expected, result)
+
     def _serialize(self, obj):
         return json.dumps(obj, default=json_serializer)
