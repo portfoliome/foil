@@ -1,9 +1,10 @@
 import os
+import shutil
 import unittest
-from tempfile import NamedTemporaryFile
+from tempfile import NamedTemporaryFile, mkdtemp
 from uuid import uuid4
 
-from foil.filesys import file_exists
+from foil.filesys import file_exists, ensure_file_directory
 
 
 class TestFileExists(unittest.TestCase):
@@ -28,3 +29,26 @@ class TestFileExists(unittest.TestCase):
     def tearDown(self):
         if os.path.exists(self.tmp_path):
             os.unlink(self.tmp_path)
+
+
+class TestEnsureFiles(unittest.TestCase):
+
+    def setUp(self):
+        self.base_path = mkdtemp()
+
+    def test_ensure_file_directory(self):
+        directory = str(uuid4())
+        file_name = str(uuid4()) + '.txt'
+        directory_path = os.path.join(self.base_path, directory)
+        path = os.path.join(directory_path, file_name)
+
+        ensure_file_directory(path)
+
+        self.assertTrue(os.path.exists(directory_path))
+
+        # make sure nothing happens on second call
+        ensure_file_directory(path)
+
+    def tearDown(self):
+        if os.path.exists(self.base_path):
+            shutil.rmtree(self.base_path)
