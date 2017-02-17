@@ -44,12 +44,6 @@ class DelimitedReader:
     Factory Methods
     ---------------
     See factory methods for alternative constructors.
-
-    Notes
-    -----
-    Previewing file header columns without loading, or extracting a large
-    file can be accomplished by:
-      >> DelimitedReader(params, fields=[], converters=[]).header -> header
     """
 
     def __init__(self, stream,
@@ -85,6 +79,27 @@ class DelimitedReader:
 
         stream = ZipReader(path, filename).readlines(encoding)
         return cls(stream, dialect, fields, converters)
+
+    @staticmethod
+    def discover_headers(stream, dialect):
+        from foil.parsers import parse_quoted_string
+
+        headers = DelimitedReader(stream, dialect=dialect,
+                                  fields=[], converters=[]).header
+
+        return (parse_quoted_string(field) for field in headers)
+
+    @staticmethod
+    def file_headers(path, encoding, dialect):
+        stream = open(path, 'r', encoding=encoding)
+
+        return DelimitedReader.discover_headers(stream, dialect=dialect)
+
+    @staticmethod
+    def zipfile_headers(path, filename, encoding, dialect):
+        stream = ZipReader(path, filename).readlines(encoding)
+
+        return DelimitedReader.discover_headers(stream, dialect)
 
 
 class DelimitedSubsetReader(DelimitedReader):
