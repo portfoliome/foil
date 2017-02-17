@@ -168,6 +168,20 @@ class TestDelimitedReader(DelimitedReaderFixture, unittest.TestCase):
 
         self.assertSequenceEqual(self.expected, result)
 
+    def test_file_headers(self):
+        headers = DelimitedReader.file_headers(path=self.path,
+                                               encoding=self.encoding,
+                                               dialect=self.dialect)
+
+        self.assertEqual(self.fields, list(headers))
+
+    def test_zip_file_headers(self):
+        headers = DelimitedReader.zipfile_headers(path=self.zip_path,
+                                                  filename=self.zip_filename,
+                                                  encoding=self.encoding,
+                                                  dialect=self.dialect)
+        self.assertEqual(self.fields, list(headers))
+
     def test_line_number(self):
         # counts skipped header line
         stream = io.StringIO(delimited_text())
