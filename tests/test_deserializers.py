@@ -20,7 +20,7 @@ class TestJSONDeserializer(unittest.TestCase):
         serialized_data = json.dumps(
             {'time': '2017-01-19T21:41:18.056446Z',
              'date': '2013-04-05', 'date_str': '2013-04-05',
-             'id': '060444c9-e2d7-4a55-964d-e495f2d5527f',
+             'non_date': '8570', 'id': '060444c9-e2d7-4a55-964d-e495f2d5527f',
              'description': 'foo', 'data': {'count': 4},
              'foobar_field': 'foobar'}
         )
@@ -33,7 +33,8 @@ class TestJSONDeserializer(unittest.TestCase):
         expected = {
             'time': datetime(2017, 1, 19, 21, 41, 18, 56446,
                              tzinfo=iso8601.UTC),
-            'date': datetime(2013, 4, 5).date(), 'date_str': '2013-04-05',
+            'date': datetime(2013, 4, 5).date(),
+            'date_str': '2013-04-05', 'non_date': '8570',
             'id': UUID('060444c9-e2d7-4a55-964d-e495f2d5527f', version=4),
             'description': 'foo', 'data': {'count': 4}, 'foobar_field': True
         }

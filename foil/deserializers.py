@@ -28,10 +28,13 @@ def parse_iso_date(value):
 
 
 def parse_iso_datetime(value):
-    try:
-        value = iso8601.parse_date(value)
-    except iso8601.ParseError:
-        pass
+
+    # Prevent iso8601 over-zealous datetime parsing
+    if '-' in value and ':' in value:
+        try:
+            value = iso8601.parse_date(value)
+        except iso8601.ParseError:
+            pass
 
     return value
 
